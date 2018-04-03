@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Formulare auf statischen Webseiten einrichten</title>
+
+<meta name="description" content="Tutorial: Kontaktformulare auf statischen Websiten wie z. B. Hugo mit AWS Lambda und mailgun einrichten.">
+
+<meta name="robots" content='index, follow'>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://meinto.github.io/css/main.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-105085037-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="row">
+        <a 
+          href="https://meinto.github.io/"
+          class="tab"
+        >Home</a>
+        <span class="right">
+          <a 
+            href="https://github.com/meinto"
+            target="_blank"
+            class="tab"
+          >Github</a>
+        </span>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="small-12 columns">
+        
+
+  
+  
+  <nav>
+    <ol class="breadcrumbs">
+      <li><a href="/">home</a></li>
+      
+        
+          
+          <li><a href='https://meinto.github.io/tutorials'>tutorials</a></li>
+          
+          
+      
+        
+          
+          <li><a href='https://meinto.github.io/tutorials/formulare-auf-statischen-webseiten'>formulare-auf-statischen-webseiten</a></li>
+          
+          
+      
+        
+          
+      
+    </ol>
+  </nav>
+  
+
+      </div>
+    </div>
+
+    <main>
+      <div class="main row">
+        <div class="small-12 columns">
+          
+
+  <article class="single">
+
+    <h1>Formulare auf statischen Webseiten einrichten</h1>
+
+    <ul class="tags">
+  
+    <li><a href="/tags/hugo">hugo</a></li>
+  
+    <li><a href="/tags/static-site-generator">static site generator</a></li>
+  
+    <li><a href="/tags/aws">aws</a></li>
+  
+    <li><a href="/tags/amazon">amazon</a></li>
+  
+    <li><a href="/tags/aws-lambda">aws lambda</a></li>
+  
+    <li><a href="/tags/hosting">hosting</a></li>
+  
+    <li><a href="/tags/serverless">serverless</a></li>
+  
+</ul>
+
+    
+
+<p>Statische Webseiten haben Vor- und Nachteile. Sie sind auf der einen Seite unfassbar schnell in der Auslieferung, da der DOM nicht erst serverseitig zusammengestellt werden muss. Auf der anderen Seite ist der wohl größte Nachteil die fehlende Dynamik. Bei einem Hosting auf einer <strong>Serverless Infrastructure</strong> kommt zudem dazu, dass man keinen Zugriff auf den Server hat und somit andere Wege gehen muss, um serverseitigen Code auszuführen.</p>
+
+<p>In diesem Artikel erkläre ich, wie ich dieses Problem am Beispiel eines Kontaktformulares gelöst habe.</p>
+
+<h2 id="statische-webseiten-und-formulare">Statische Webseiten und Formulare</h2>
+
+<p>Wie schon erwähnt ist es nicht möglich auf statischen Webseiten ohne Weiteres dynamische Seiteninhalte wie Formulare zu hinterlegen. Um das zu erreichen, wird entweder ein Drittanbieter benötigt, oder man schreibt sich die entsprechenden Scripte auf einem eigenen Server selbst.</p>
+
+<p>Die folgenden Drittanbieter bieten einfache Formularlösungen für statische Webseiten an:</p>
+
+<ul>
+<li><a
+  href='http://formspree.io/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Formspree</a></li>
+<li><a
+  href='https://www.elformo.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>elFormo</a></li>
+<li><a
+  href='http://flipmail.co/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Flipmail</a></li>
+<li><a
+  href='http://mailthis.to/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>MailThis</a> - optionale Anhänge.</li>
+<li><a
+  href='https://getsimpleform.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Simple Form</a> - optionale Anhänge .</li>
+<li><a
+  href='https://github.com/stevensona/briskforms'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Brisk Forms</a> - E-Mail Adresse bleibt privat.</li>
+</ul>
+
+<p>Da ich datenschutzrechtlich allen angesprochenen Webseiten nicht vertraue, habe ich mich gegen diese einfache Variante entschieden.</p>
+
+<p>Es gibt jedoch noch weitere <strong>Drittanbieter von Web-Formularen</strong>. Diese bieten aber meistens kein einfaches Formular an, welches frei gestaltet werden kann. Entweder ist es schon vorgestyled und muss über Iframes eingebunden werden, oder es handelt sich eher um Umfragen die z. B. in Google Sheets gepushed werden und keine E-Mail auslösen. All das war für mich auch keine Alternative. Nachfolgend trotzdem der Vollständigkeit halber die Links zu den Anbietern:</p>
+
+<ul>
+<li><a
+  href='https://www.google.com/forms/about/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Google Forms</a> - Speichert die Ergebnisse der Umfrage in Google Sheets. Es gibt eine E-Mail Benachrichtigung wenn jemand eine Umfrage ausgefüllt hat.</li>
+<li><a
+  href='https://formkeep.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>FormKeep</a> - Formulare mit Spam Filter, Webhooks für z. B. Gmail, Trello und Basecamp.</li>
+<li><a
+  href='http://www.123contactform.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>123 Contact Form</a> - Formulare mit Verbindung zu z. B. MailChimp, Salesforce und Google Drive.</li>
+<li><a
+  href='http://www.formassembly.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>FormAssembly</a></li>
+<li><a
+  href='https://www.formsite.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>FormSite</a></li>
+<li><a
+  href='https://www.formstack.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>FormStack</a> - Formulare mit A/B Testing.</li>
+<li><a
+  href='https://sheetsu.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Sheetsu</a></li>
+<li><a
+  href='http://www.typeform.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Typeform</a></li>
+<li><a
+  href='http://www.wufoo.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Wufoo</a></li>
+<li><a
+  href='https://www.zoho.com/crm/help/web-forms/set-up-web-forms.html'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Zoho</a> - Formulare mit File Upload und Captcha.</li>
+<li><a
+  href='https://help.github.com/articles/about-issues/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Github Issues</a></li>
+<li><a
+  href='https://www.formbackend.com'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>FormBackend</a></li>
+</ul>
+
+<h2 id="aws-lambda">AWS Lambda</h2>
+
+<p>Da Drittanbieter von Formularen für mich wegfielen musste eine eigene Lösung her. Theoretisch muss ein HTML-Formular auf der statischen Website an einen Endpunkt <strong>posten</strong>, der den <strong>post-Request</strong> verarbeiten kann. Da ich Fan von Serverless Infrastructure bin, habe ich das entsprechende Script nicht auf einem eigenen Server gehostet, sondern als <strong>AWS Lambda</strong> Funktion aufgesetzt.</p>
+
+<p><strong>Setup für das Kontaktformular</strong></p>
+
+<ul>
+<li>Eine AWS Lambda Funktion hinter dem Amazon API Gateway</li>
+<li><a
+  href='https://www.mailgun.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>mailgun</a> zum versenden der E-Mails getriggered von AWS Lambda</li>
+</ul>
+
+<h3 id="aws-lambda-einrichten">AWS Lambda einrichten</h3>
+
+<p>Um die Amazon Services nutzen zu können benötigt man lediglich ein Amazon Account, welcher dann auch für die Services freigeschaltet wird. Um loszulegen muss ebenfalls eine Kreditkarte hinterlegt und die Identität durch einen automatischen Telefonanruf (für die Pineingabe) verifiziert werden. Von der Kreditkarte wird nichts abgebucht, solange man sich im freien Kontingent der Services bewegt. <a
+  href='https://aws.amazon.com/de/lambda/pricing/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Bei Amazon Lambda sind die ersten 1.000.000 Anfragen pro Monat und 400.000 GB/s Datenverarbeitungszeit kostenlos.</a> Danach kostet es pro weitere Millionen Anfragen 0.20 USD.</p>
+
+<p>Einmal angemeldet kann nun die erste Lambda Funktion unter <strong>Services -&gt; Lambda</strong> angelegt werden. Die folgenden Sprachen sind für Lambda Funktionen möglich:</p>
+
+<ul>
+<li>C#</li>
+<li>Java 8</li>
+<li>Node.js 4.3</li>
+<li>Node.js 6.10</li>
+<li>Python 2.7</li>
+<li>Python 3.6</li>
+</ul>
+
+<p>Die Sprache einer Funktion wird in der Konfigurationsansicht der Lambda Funktion eingestellt. Hier werden ebenfalls <strong>Umgebungsvariablen</strong> definiert, sowie der <strong>Einsprungpunkt der Funktion</strong> angegeben.</p>
+
+<h3 id="funktion-für-e-mail-versand">Funktion für E-Mail Versand</h3>
+
+<p>Für das Script – zum Anstoßen des E-Mail Versandes – habe ich Python gewählt. Der nachfolgende Code zeigt einen API Aufruf der <strong>mailgun API</strong>. Die entsprechenden Werte wie die <strong>mailgun API Url</strong> oder den <strong>mailgun API Key</strong> habe ich in den bereits angesprochenen <strong>Umgebungsvariablen</strong> der Lambda Funktion hinterlegt. Mit <code>os.environ['name_der_umgebungsvariable']</code> können diese in der Funktion abgerufen werden.</p>
+
+<p>Als Einsprungpunkt habe ich unter <strong>Handler</strong> in der Funktionskonfiguration <code>index.lambda_handler</code> eingetragen. Bedeutet: Der Einstiegspunkt für die Routine ist die Funktion <code>lambda_handler</code> in der <code>index.py</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># AWS Lambda Function</span>
+<span style="color:#75715e"># index.py</span>
+
+<span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> os 
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+    send_simple_message(event)
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;message sent&#39;</span>
+    
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_simple_message</span>(event):
+    text <span style="color:#f92672">=</span> []
+    text<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;name: &#39;</span> <span style="color:#f92672">+</span> event[<span style="color:#e6db74">&#39;name&#39;</span>])
+    text<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+    text<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;email: &#39;</span> <span style="color:#f92672">+</span> event[<span style="color:#e6db74">&#39;email&#39;</span>])
+    text<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+    text<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;message: &#39;</span> <span style="color:#f92672">+</span> event[<span style="color:#e6db74">&#39;message&#39;</span>])
+    
+    <span style="color:#66d9ef">return</span> requests<span style="color:#f92672">.</span>post(
+        os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;api_base_url&#39;</span>],
+        auth<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#34;api&#34;</span>, os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;mailgun_api_key&#39;</span>]),
+        data<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;from&#34;</span>: os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;from&#39;</span>],
+              <span style="color:#e6db74">&#34;to&#34;</span>: os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;to&#39;</span>],
+              <span style="color:#e6db74">&#34;subject&#34;</span>: os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;subject&#39;</span>],
+              <span style="color:#e6db74">&#34;text&#34;</span>: <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(text)})</code></pre></div>
+
+<p>Da die Funktion eine externe Library verwendet, muss diese ebenfalls mit der eigentlichen Lambda Funktion gepackt und hochgeladen werden. Hierfür einfach ein entsprechendes kleines Projektverzeichnis anlegen und die externe Python Library direkt in dieses Verzeichnis installieren. In meinem Fall war das die Library <code>requests</code>:</p>
+
+<p><code>pip install requests -t /path/to/project-dir</code></p>
+
+<p>Auf der root-Ebene des Projektverzeichnisses befinden sich nun also die Ordner für die externe Library <code>requests</code> und die <code>index.py</code> welche meine eigentliche Lambda Funktion beschreibt.</p>
+
+<p>Um die Lambda Funktion zu deployen, einfach den Inhalt des Projekt Ordners zippen und in der AWS Management Console für die entsprechende Lambda Funktion hochladen.</p>
+
+<h3 id="api-gateway-einrichten">API Gateway einrichten</h3>
+
+<p>Um die Funktion von außen erreichbar zu machen muss nun noch ein API Endpunkt im AWS API Gateway eingerichtet werden. Am besten legt man diesen direkt im Konfigurationsmenü der Funktion unter dem Menüpunkt <strong>Triggers -&gt; Add trigger -&gt; API Gateway</strong> an.</p>
+
+<p>Einen <strong>API Namen</strong> wählen, den Wert unter <strong>Development stage</strong> auf <strong>prod</strong> belassen und unter <strong>Security</strong> die Option <strong>open</strong> auswählen. In der <strong>Services -&gt; API Gateway</strong> Ansicht wird nun die neue API unter <strong>Resources</strong> angezeigt.</p>
+
+<p>Voreingestellt ist hier die Methode <strong>ANY</strong>. Für die Lambda Funktion muss man die Methoden <strong>OPTIONS</strong> und <strong>POST</strong> unter <strong>Actions -&gt; Create Method</strong> einrichten. Hier als <strong>Integration type -&gt; Lambda Function</strong> und die entsprechende <strong>Lambda Region</strong> auswählen. Danach erscheint ein Feld <strong>Lambda Funktion</strong>. Ein Klick auf die Leertaste lässt ein Dropdown Menü erscheinen in welcher schon der Name der Lambda Funktion steht. Diesen Namen dann auswählen und auf <strong>Save</strong> klicken.</p>
+
+<p>Am Schluss ist es noch wichtig CORS (Cross-Origin Resource Sharing) für die Methoden <strong>OPTIONS</strong> und <strong>POST</strong> zu aktivieren. Diese Einstellung kann unter <strong>Actions -&gt; Enable CORS</strong> vorgenommen werden. Unter <strong>Access-Control-Allow-Origin</strong> sollte bestenfalls kein &lsquo;*&lsquo;, sondern die entsprechende Domain stehen von der die Requests kommen.</p>
+
+<p>Zum Schluss muss die API dann noch unter <strong>Actions -&gt; Deploy API</strong> deployed werden.</p>
+
+<h3 id="client-integration">Client Integration</h3>
+
+<p>Der Ajax Request um die API anzusprechen sieht wie folgt aus:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://api-endpoint-url.amazon.com&#39;</span>;
+<span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+  <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">url</span>,
+  <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+  <span style="color:#a6e22e">crossDomain</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">contentType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>,
+  <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;json&#39;</span>,
+  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">name</span>,
+    <span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">email</span>,
+    <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">message</span>,
+  }),
+})
+</code></pre></div>
+
+<p>Das fertige Resultat könnt ihr auf meiner <a
+  href='/kontakt'
+  target=''
+  
+>Kontakt Seite</a> sehen.</p>
+
+<h2 id="risiken-von-aws-services">Risiken von AWS Services</h2>
+
+<p>Amazon AWS ist eine tolle Sache. Man kann sich in kurzer Zeit ziemlich viel einfach zusammen klicken. Das tolle aber auch gefährliche an allen Services ist, dass sie ziemlich schnell hoch skalieren wenn die Anfragen steigen. Deshalb habe ich vorsichtshalber das <strong>Event throttling</strong> in der API ziemlich niedrig eingestellt, sodass nur wenige Anfragen auf einmal gestellt werden können und ich in der kostenlosen Zohne für die Nutzung der Services bleibe.</p>
+
+<p>Außerdem können im <strong>Cloud Watch Service</strong> Alarme eingestellt werden die E-Mails verschicken, sobald die Nutzung einer Lambda Funktion die durchschnittlichen Grenzwerte überschreitet.</p>
+
+
+  </article>
+
+  <section>
+  
+    <h2>Kommentare</h2>
+
+    <div id="disqus_thread"></div>
+    <noscript>Bitte aktiviere JavaScript in deinem Browser um Kommentare lesen zu können...</noscript>
+  
+  </section>
+
+        </div>  
+      </div>
+    </main>
+
+    <footer>
+      <div class="row">
+        <div class="small-12 columns">
+          <span class="copyright">© Tobias Meinhardt 2018</span>
+          
+          <span class="right">
+            
+              
+                <a
+                  href="https://meinto.github.io/kontakt/"
+                  class="tab"
+                >Kontakt</a>
+              
+            
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/impressum/"
+                  class="tab"
+                >Impressum</a>
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/ueber-mich/"
+                  class="tab"
+                >Über den Autor</a>
+              
+            
+          </span>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+  
+</html>
+
+
+
+  <script>
+
+    var disqus_config = function () {
+      this.page.url = "https://meinto.github.io/tutorials/formulare-auf-statischen-webseiten/";  
+      this.page.identifier = "tutorials/formulare-auf-statischen-webseiten/"; 
+    };
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://meinto-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+  </script>
+

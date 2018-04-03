@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vorstellung: Facebook Graph Api</title>
+
+<meta name="description" content="Vorstellung der Facebook Graph API. ⌨ Binde Daten des sozialen Netzwerkes in deine eigene Website oder App ein! ☕">
+
+<meta name="robots" content='index, follow'>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://meinto.github.io/css/main.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-105085037-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="row">
+        <a 
+          href="https://meinto.github.io/"
+          class="tab"
+        >Home</a>
+        <span class="right">
+          <a 
+            href="https://github.com/meinto"
+            target="_blank"
+            class="tab"
+          >Github</a>
+        </span>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="small-12 columns">
+        
+
+  
+  
+  <nav>
+    <ol class="breadcrumbs">
+      <li><a href="/">home</a></li>
+      
+        
+          
+          <li><a href='https://meinto.github.io/api'>api</a></li>
+          
+          
+      
+        
+          
+          <li><a href='https://meinto.github.io/api/facebook-graph'>facebook-graph</a></li>
+          
+          
+      
+        
+          
+      
+    </ol>
+  </nav>
+  
+
+      </div>
+    </div>
+
+    <main>
+      <div class="main row">
+        <div class="small-12 columns">
+          
+
+  <article class="single">
+
+    <h1>Vorstellung: Facebook Graph Api</h1>
+
+    <ul class="tags">
+  
+    <li><a href="/tags/api">api</a></li>
+  
+    <li><a href="/tags/facebook">facebook</a></li>
+  
+    <li><a href="/tags/sdk">sdk</a></li>
+  
+    <li><a href="/tags/json">json</a></li>
+  
+    <li><a href="/tags/social">social</a></li>
+  
+</ul>
+
+    
+
+<p>Facebook - das derzeit größte soziale Netzwerk der Welt - bietet eine API zum Auslesen von Informationen und sogar zum Verwalten von Facebookseiten, Gruppen etc. an. Die Rede ist in diesem Artikel vom <a
+  href='https://developers.facebook.com/docs/graph-api'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Facebook Graph</a>. Neben Facebook Graph gibt es noch weitere APIs von Facebook auf die hier aber nicht weiter eingegangen wird:</p>
+
+<ul>
+<li>Atlas API</li>
+<li>Instagram API</li>
+<li>Marketing API</li>
+</ul>
+
+<p>Der Facebook Graph ist dafür gedacht, die Daten des sozialen Netzwerkes einfach in seine eigene App oder seine Website zu integrieren. Dabei bietet Facebook allerlei <a
+  href='https://developers.facebook.com/docs/apis-and-sdks'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>SDKs um den Entwicklern die Anbindung</a> zur erleichtern. Auch die Facebook Community ist hier sehr aktiv und hat eine ganze Reihe an Community-SDKs entwickelt.</p>
+
+<h2 id="graph-api-explorer">Graph API Explorer</h2>
+
+<p>Doch ganz von vorne. Die Graph API ist eine REST-API: Um schnell mal schauen zu können was man vom Facebook Graph alles zurück bekommt, gibt es den <a
+  href='https://developers.facebook.com/tools/explorer/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Graph API Explorer</a>. Voreingestellt ist die folgende GET Abfrage:</p>
+
+<p><code>me?fields=id,name</code></p>
+
+<p>Drückt man den Senden Button wird die Anfrage mit einem temporären Token abgesendet und man sieht das Ergebnis JSON mit einem <code>id</code> und einem <code>name</code> Feld:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;&lt;hier steht die ID meine Accounts&gt;&#34;</span>,
+  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Tobias Meinhardt&#34;</span>
+}</code></pre></div>
+
+<p>Ohne weiteren großen Aufwand kann man nun links in der Graph Navigation weitere Felder der Suche hinzufügen - z. B. das Feld <code>context</code> das einem alle Freunde mit Name und ID auflistet.</p>
+
+<p>Viele Felder sind jedoch mit dem Hinweis gesperrt das der User - in dem Fall ich - keine Berechtigung gegeben hat das Feld mittels öffentlicher API auszulesen. Jetzt wird es interessant: <strong>Wie komme ich trotzdem an diese Felder?</strong></p>
+
+<h2 id="facebook-apps">Facebook Apps</h2>
+
+<p>Um als Entwickler Daten von Facebook Users auszulesen muss zuerst über das Facebook Profil des Entwicklers eine <strong>Facebook App</strong> angelegt werden. Der Menüpunkt hierfür ist im Facebook Profil links in der Navigationsleiste unter <strong>Entdecken -&gt; Apps verwalten</strong> zu finden.</p>
+
+<h3 id="abruf-von-user-daten">Abruf von User Daten</h3>
+
+<p>Mithilfe dieser Facebook App ist es später möglich, über z. B. eines der Facebook SDKs, User nach der Berechtigung zu fragen, private Daten zum Betrieb der eigenen App aus deren Facebook Profil abzufragen.</p>
+
+<p><em>Ein Beispiel:</em></p>
+
+<p>Die vom Entwickler erstellte Facebook App ist z. B. auf einer Website eingebunden, die einen Service anbietet, für den private Daten von dem Facebook Profil des Users benötigt werden. Für den User, der den Service nutzen will, öffnet sich ein Popup der Facebook App, welches ihn um die entsprechenden Berechtigungen fragt, diese Daten abrufen zu dürfen. Akzeptiert der User diese Anfrage, sind die entsprechend angeforderten Daten über die Graph API abrufbar.</p>
+
+<h3 id="abruf-von-page-daten">Abruf von Page Daten</h3>
+
+<p>Der Abruf von Daten einer z. B. Facebook Seite ist wesentlich einfacher. Diese Daten sind meistens öffentlich. Wenn man jedoch schreibenden Zugriff auf die Facebook Seite benötigt, muss man selbst der Owner der Facebook Seite sein und mit dem entsprechend eigenen Facebook Zugriffstoken die API anfragen.</p>
+
+<h2 id="access-tokens">Access Tokens</h2>
+
+<p>Wenn ein SDK für den Abruf der Daten eingesetzt wird brauch man grundsätzlich drei Dinge:</p>
+
+<ul>
+<li>Facebook App ID</li>
+<li>Facebook App Secret</li>
+<li>Access Token</li>
+</ul>
+
+<p>Dabei gibt es 2 Sorten von <strong>Access Tokens</strong>. Einen Temporären und einen <strong>Long Lived Access Token</strong>. Es empfiehlt sich letzteren für den live Betrieb einer eigenen App einzusetzen, da er 60 Tage lang gültig bleibt.</p>
+
+
+  </article>
+
+  <section>
+  
+    <h2>Kommentare</h2>
+
+    <div id="disqus_thread"></div>
+    <noscript>Bitte aktiviere JavaScript in deinem Browser um Kommentare lesen zu können...</noscript>
+  
+  </section>
+
+        </div>  
+      </div>
+    </main>
+
+    <footer>
+      <div class="row">
+        <div class="small-12 columns">
+          <span class="copyright">© Tobias Meinhardt 2018</span>
+          
+          <span class="right">
+            
+              
+                <a
+                  href="https://meinto.github.io/kontakt/"
+                  class="tab"
+                >Kontakt</a>
+              
+            
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/impressum/"
+                  class="tab"
+                >Impressum</a>
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/ueber-mich/"
+                  class="tab"
+                >Über den Autor</a>
+              
+            
+          </span>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+  
+</html>
+
+
+
+  <script>
+
+    var disqus_config = function () {
+      this.page.url = "https://meinto.github.io/api/facebook-graph/";  
+      this.page.identifier = "api/facebook-graph/"; 
+    };
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://meinto-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+  </script>
+

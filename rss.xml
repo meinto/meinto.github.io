@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>
+      
+        Blog von Tobias Meinhardt
+      
+    </title>
+    <link>https://meinto.github.io/</link>
+    <description>
+      
+        Blog von Tobias Meinhardt
+        
+    </description>
+    
+      <language>de-DE</language>
+    
+    
+      <copyright>© Tobias Meinhardt 2018</copyright>
+    
+    
+        <atom:link href="https://meinto.github.io/rss.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        <item>
+          <title>Vorstellung: Facebook Graph Api</title>
+          <link>https://meinto.github.io/api/facebook-graph/</link>
+          
+            <pubDate>31.08.2017</pubDate>
+          
+          
+          <guid>https://meinto.github.io/api/facebook-graph/</guid>
+          <description>Facebook - das derzeit größte soziale Netzwerk der Welt - bietet eine API zum Auslesen von Informationen und sogar zum Verwalten von Facebookseiten, Gruppen etc. an. Die Rede ist in diesem Artikel vom Facebook Graph. Neben Facebook Graph gibt es noch weitere APIs von Facebook auf die hier aber nicht weiter eingegangen wird:
+ Atlas API Instagram API Marketing API  Der Facebook Graph ist dafür gedacht, die Daten des sozialen Netzwerkes einfach in seine eigene App oder seine Website zu integrieren.</description>
+        </item>
+      
+    
+      
+        <item>
+          <title>Formulare auf statischen Webseiten einrichten</title>
+          <link>https://meinto.github.io/tutorials/formulare-auf-statischen-webseiten/</link>
+          
+            <pubDate>26.08.2017</pubDate>
+          
+          
+          <guid>https://meinto.github.io/tutorials/formulare-auf-statischen-webseiten/</guid>
+          <description>Statische Webseiten haben Vor- und Nachteile. Sie sind auf der einen Seite unfassbar schnell in der Auslieferung, da der DOM nicht erst serverseitig zusammengestellt werden muss. Auf der anderen Seite ist der wohl größte Nachteil die fehlende Dynamik. Bei einem Hosting auf einer Serverless Infrastructure kommt zudem dazu, dass man keinen Zugriff auf den Server hat und somit andere Wege gehen muss, um serverseitigen Code auszuführen.
+In diesem Artikel erkläre ich, wie ich dieses Problem am Beispiel eines Kontaktformulares gelöst habe.</description>
+        </item>
+      
+    
+      
+    
+      
+        <item>
+          <title>Static Site Generator Hugo auf Github Pages hosten</title>
+          <link>https://meinto.github.io/tutorials/hugo-auf-github-pages-hosten/</link>
+          
+            <pubDate>21.08.2017</pubDate>
+          
+          
+          <guid>https://meinto.github.io/tutorials/hugo-auf-github-pages-hosten/</guid>
+          <description>Website Hosting auf Github Pages Serverless Infrastructure ist eines der Buzzwords, welches in den letzten Jahren immer mehr im Kommen ist. So könnte man auch das Hosting einer Website auf Github Pages als serverless bezeichnen.
+Github erlaubt dem Standard User eine Website kostenlos auf deren Infrastruktur zu hosten. Voraussetzung hierfür ist, dass es sich um eine statische Website handelt. Serverseitige Code-Ausführung ist nicht möglich.
+Usage Limits Wer bei Github seinen Blog oder seine Website hosten möchte, muss sich an einige Rahmenbedingungen halten.</description>
+        </item>
+      
+    
+      
+    
+      
+        <item>
+          <title>Über den Autor</title>
+          <link>https://meinto.github.io/ueber-mich/</link>
+          
+            <pubDate>20.08.2017</pubDate>
+          
+          
+          <guid>https://meinto.github.io/ueber-mich/</guid>
+          <description>Über Mich Mein Name ist Tobias Meinhardt und ich bin derzeit Software Entwickler bei HORNBACH. Meine Hauptaufgaben bei HORNBACH sind die Entwicklung von Apps aller Art - meistens auf Basis von React-Native.
+Ich beschäftige mich in meiner Freizeit mit allerlei neuen Technologien und möchte hier hin und wieder meine Erfahrungen weitergeben.
+Lebenslauf 2008 - 2012 duales Studium bei dm-drogerie markt / FILIADATA
+Studiert habe ich von 10 / 2008 bis 09 / 2012 in Karlsruhe: Wirtschaftsinformatik - Bachelor of Science.</description>
+        </item>
+      
+    
+  </channel>
+</rss>

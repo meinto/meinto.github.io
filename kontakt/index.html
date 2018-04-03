@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kontakt</title>
+
+<meta name="description" content="Kontakt">
+
+<meta name="robots" content='noindex, follow'>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://meinto.github.io/css/main.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-105085037-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="row">
+        <a 
+          href="https://meinto.github.io/"
+          class="tab"
+        >Home</a>
+        <span class="right">
+          <a 
+            href="https://github.com/meinto"
+            target="_blank"
+            class="tab"
+          >Github</a>
+        </span>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="small-12 columns">
+        
+
+  
+  
+  <nav>
+    <ol class="breadcrumbs">
+      <li><a href="/">home</a></li>
+      
+        
+          
+          <li><a href='https://meinto.github.io/kontakt'>kontakt</a></li>
+          
+          
+      
+        
+          
+      
+    </ol>
+  </nav>
+  
+
+      </div>
+    </div>
+
+    <main>
+      <div class="main row">
+        <div class="small-12 columns">
+          
+
+  <article class="single">
+
+    <h1>Kontakt</h1>
+
+    <p>Tobias Meinhardt<br />
+<strong>E-Mail</strong>: tobias.meinhardt89@gmail.com<br />
+<strong>Github</strong>: <a
+  href='https://github.com/meinto'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>https://github.com/meinto</a><br />
+<strong>Xing</strong>: <a
+  href='https://www.xing.com/profile/Tobias_Meinhardt5'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>https://www.xing.com/profile/Tobias_Meinhardt5</a><br />
+<strong>Linkedin</strong>: <a
+  href='https://www.linkedin.com/in/tobias-meinhardt-92000449/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>https://www.linkedin.com/in/tobias-meinhardt-92000449/</a></p>
+
+
+    <h2>Kontaktformular</h2>
+
+    <div id="contact-form-wrapper" class="warning">Bitte aktiviere JavaScript in deinem Browser um das Kontaktformular nutzen zu können...</div>
+
+  </article>
+
+
+        </div>  
+      </div>
+    </main>
+
+    <footer>
+      <div class="row">
+        <div class="small-12 columns">
+          <span class="copyright">© Tobias Meinhardt 2018</span>
+          
+          <span class="right">
+            
+              
+                <a
+                  href="https://meinto.github.io/kontakt/"
+                  class="tab"
+                >Kontakt</a>
+              
+            
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/impressum/"
+                  class="tab"
+                >Impressum</a>
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/ueber-mich/"
+                  class="tab"
+                >Über den Autor</a>
+              
+            
+          </span>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+  
+</html>
+
+
+
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+
+  <script>
+    $('#contact-form-wrapper').removeClass('warning').html(`
+      <form id="contact-form" action="#" class="row">
+        <fieldset class="small-12 medium-6 columns">
+          <label>Name*</label>
+          <input type="text" name="name">
+        </fieldset>
+        <fieldset class="small-12 medium-6 columns">
+          <label>E-Mail*</label>
+          <input type="email" name="email">
+        </fieldset>
+        <fieldset class="small-12 columns">
+          <label>Nachricht*</label>
+          <textarea name="message" />
+          <button class="button">Absenden</button>
+        </fieldset>
+      </form>
+    `)
+
+    $(document).on('submit', '#contact-form', function(e) {
+      e.preventDefault();
+      var url = window.atob('aHR0cHM6Ly8yeW55Yjdxd3cxLmV4ZWN1dGUtYXBpLmV1LWNlbnRyYWwtMS5hbWF6b25hd3MuY29tL3Byb2QvbWVpbnRvLWdpdGh1Yi1pby1jb250YWN0LWZvcm0=');
+      
+      $('fieldset').removeClass('error');
+
+      var name = $.trim($('[name="name"]').val()) || '';
+      var email = $.trim($('[name="email"]').val()) || '';
+      var message = $.trim($('[name="message"]').val()) || '';
+      
+      if(name.length > 0 && email.length > 0 && message.length > 0) {
+        $.ajax({
+          url: url,
+          type: 'POST',
+          crossDomain: true,
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+          }),
+          success: function() {
+            $('#contact-form-wrapper').addClass('success').html('Nachricht wurde erfolgreich übermittelt. Ich melde mich sobald ich kann...');
+          }
+        })
+      } else {
+        if (name.length == 0) {
+          $('[name="name"]').parent().addClass('error');
+        }
+
+        if (email.length == 0) {
+          $('[name="email"]').parent().addClass('error');
+        }
+
+        if (message.length == 0) {
+          $('[name="message"]').parent().addClass('error');
+        }
+      }
+    })
+  </script>
+

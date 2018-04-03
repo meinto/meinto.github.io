@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>
+      
+        Aws Lambda
+      
+    </title>
+    <link>https://meinto.github.io/tags/aws-lambda/</link>
+    <description>
+      
+        Aws Lambda
+        
+    </description>
+    
+      <language>de-DE</language>
+    
+    
+      <copyright>© Tobias Meinhardt 2018</copyright>
+    
+    
+        <atom:link href="https://meinto.github.io/tags/aws-lambda/rss.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        <item>
+          <title>Formulare auf statischen Webseiten einrichten</title>
+          <link>https://meinto.github.io/tutorials/formulare-auf-statischen-webseiten/</link>
+          
+            <pubDate>26.08.2017</pubDate>
+          
+          
+          <guid>https://meinto.github.io/tutorials/formulare-auf-statischen-webseiten/</guid>
+          <description>Statische Webseiten haben Vor- und Nachteile. Sie sind auf der einen Seite unfassbar schnell in der Auslieferung, da der DOM nicht erst serverseitig zusammengestellt werden muss. Auf der anderen Seite ist der wohl größte Nachteil die fehlende Dynamik. Bei einem Hosting auf einer Serverless Infrastructure kommt zudem dazu, dass man keinen Zugriff auf den Server hat und somit andere Wege gehen muss, um serverseitigen Code auszuführen.
+In diesem Artikel erkläre ich, wie ich dieses Problem am Beispiel eines Kontaktformulares gelöst habe.</description>
+        </item>
+      
+    
+  </channel>
+</rss>

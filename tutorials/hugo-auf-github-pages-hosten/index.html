@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Static Site Generator Hugo auf Github Pages hosten</title>
+
+<meta name="description" content="Tutorial: Wie hostet man eine Website - erstellt mit dem Static Site Generator Hugo - am Besten ohne viel Arbeit auf Github Pages?">
+
+<meta name="robots" content='index, follow'>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://meinto.github.io/css/main.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-105085037-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="row">
+        <a 
+          href="https://meinto.github.io/"
+          class="tab"
+        >Home</a>
+        <span class="right">
+          <a 
+            href="https://github.com/meinto"
+            target="_blank"
+            class="tab"
+          >Github</a>
+        </span>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="small-12 columns">
+        
+
+  
+  
+  <nav>
+    <ol class="breadcrumbs">
+      <li><a href="/">home</a></li>
+      
+        
+          
+          <li><a href='https://meinto.github.io/tutorials'>tutorials</a></li>
+          
+          
+      
+        
+          
+          <li><a href='https://meinto.github.io/tutorials/hugo-auf-github-pages-hosten'>hugo-auf-github-pages-hosten</a></li>
+          
+          
+      
+        
+          
+      
+    </ol>
+  </nav>
+  
+
+      </div>
+    </div>
+
+    <main>
+      <div class="main row">
+        <div class="small-12 columns">
+          
+
+  <article class="single">
+
+    <h1>Static Site Generator Hugo auf Github Pages hosten</h1>
+
+    <ul class="tags">
+  
+    <li><a href="/tags/hugo">hugo</a></li>
+  
+    <li><a href="/tags/static-site-generator">static site generator</a></li>
+  
+    <li><a href="/tags/github">github</a></li>
+  
+    <li><a href="/tags/jekyll">jekyll</a></li>
+  
+    <li><a href="/tags/travis">travis</a></li>
+  
+    <li><a href="/tags/hosting">hosting</a></li>
+  
+    <li><a href="/tags/serverless">serverless</a></li>
+  
+</ul>
+
+    
+
+<h2 id="website-hosting-auf-github-pages">Website Hosting auf Github Pages</h2>
+
+<p><strong>Serverless Infrastructure</strong> ist eines der Buzzwords, welches in den letzten Jahren immer mehr im Kommen ist. So könnte man auch das <strong>Hosting einer Website</strong> auf <a
+  href='https://pages.github.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Github Pages</a> als <strong>serverless</strong> bezeichnen.</p>
+
+<p>Github erlaubt dem Standard User eine Website <strong>kostenlos</strong> auf deren Infrastruktur zu hosten. Voraussetzung hierfür ist, dass es sich um eine statische Website handelt. Serverseitige Code-Ausführung ist nicht möglich.</p>
+
+<h3 id="usage-limits">Usage Limits</h3>
+
+<p>Wer bei Github seinen Blog oder seine Website hosten möchte, muss sich an einige Rahmenbedingungen halten. Ansonsten wird man früher oder später freundlich von Github aufgefordert den Traffic auf den Github Servern zu reduzieren:</p>
+
+<ul>
+<li>Maximalgröße des Repositories: 1 GB</li>
+<li>Maximale Bandbreite pro Monat: 100 GB</li>
+<li>Publikationen (Seiten Builds) pro Stunde: 10</li>
+</ul>
+
+<p>Falls man mit seiner statischen Website an die Grenzen der Brandbreite stößt empfieht sich ein CDN wie z. B. <a
+  href='https://www.cloudflare.com/de/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Cloudflare</a>.</p>
+
+<h3 id="einrichtung-von-github-pages">Einrichtung von Github Pages</h3>
+
+<p>Um eine Website auf Github Pages zu hosten muss als erstes ein entsprechendes Repository auf Github angelegt werden. Der Repository Name muss in dem Fall immer mit dem Kürzel des Users oder der Organisation anfangen und endet mit <strong>github.io</strong>. In meinem Fall war das <strong>meinto.github.io</strong>.</p>
+
+<figure>
+  <img 
+    
+      src='https://meinto.github.io/images/tutorials/hugo-auf-github-pages-hosten/pages-repo-name.jpg'
+    
+  >
+
+  
+    <figcaption>
+        <p><p>Der Name des Github Pages Repositories muss mit dem Kürzel des Users anfangen und mit <strong>github.io</strong> enden.<br />
+<em>Achtung: Github Pages Repositories sind immer public - deshalb sollten sich keine sensiblen Daten in dem Repository befinden</em></p>
+</p>
+    </figcaption>
+  
+
+</figure>
+
+<p>Nach der Anlage kann das Repository unter dem Reiter <strong>Settings</strong> für Github Pages freigeschaltet werden:</p>
+
+<figure>
+  <img 
+    
+      src='https://meinto.github.io/images/tutorials/hugo-auf-github-pages-hosten/repository-settings.jpg'
+    
+  >
+
+  
+    <figcaption>
+        <p><p>Der default-Branch bei Pages ist der master-Branch. Dieser kann auch nicht geändert werden. Alles was sich auf dem master-Branch befindet wird von Github Pages als Grundlage genommen und veröffentlicht.</p>
+</p>
+    </figcaption>
+  
+
+</figure>
+
+<p>Die Standard-<strong>Domain</strong> lautet wird er Repository Name. In meinem Fall <em>meinto.github.io</em>. Es kann zwar eine eigene Domain hinterlegt werden, jedoch gehe ich hier nicht weiter auf diese Feature ein&hellip;</p>
+
+<h2 id="static-site-generator-jekyll-oder-hugo">Static Site Generator Jekyll oder Hugo</h2>
+
+<p>Nachdem das Repository auf Github angelegt wurde muss es natürlich befüllt werden. Github Pages arbeitet hier von Haus aus sehr eng mit <a
+  href='https://jekyllrb.com/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Jekyll</a> zusammen, einem Static-Site-Generator auf Ruby Basis. Wer Jekyll verwendet hat den Vorteil, dass er sich um fast nichts mehr Gedanken machen muss. Einfach das Jekyll-Projekt in Github Pages auf den master-Branch legen und Github Pages buildet die Seite automatisch und veröffenlicht sie.</p>
+
+<p>Für alle die Ruby schon auf ihrem Rechner installiert und eingerichtet haben ist das also die einfachste Lösung. Ich dagegen hatte Ruby auf meinem Windows-PC noch nicht installiert und bin auf <a
+  href='https://gohugo.io/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Hugo</a> gestoßen. Da Hugo in Go geschrieben ist funktionierte alles Plug and Play mäßig out of the Box.</p>
+
+<p><strong>Doch wie verknüpft man nun ein Hugo Projekt am besten mit Github Pages?</strong></p>
+
+<p>Da ich mich um so wenig wie möglich selbst kümmern möchte habe ich folgendes Setup gewählt:</p>
+
+<ol>
+<li>Das Hugo Projekt liegt in einem eigenen Repository: meinto.github.io.hugo</li>
+<li>Mit <strong>Travis</strong> wird das Hugo Projekt abgeholt und automatisch gebuilded und deployed</li>
+<li>Deployment Ziel ist das eigentliche Github Pages Repository: meinto.github.io</li>
+</ol>
+
+<h2 id="auto-deployment-auf-github-pages-mit-travis">Auto Deployment auf Github Pages mit Travis</h2>
+
+<p><a
+  href='https://travis-ci.org/'
+  target='_blank'
+  
+    rel="nofollow"
+  
+>Travis</a> ist ein Couninuous Integration Tool. Man kann es z. B. nutzen um seinen auf Github gehosteten Code zu testen und zu deployen. In meinem Fall habe ich es ausschließlich fürs Deployment verwendet.</p>
+
+<p>Ist Travis mit dem eigenen Github Account verbunden sieht man auf dem Dashboard eine Auflistung seiner Repositories. Um Travis für ein bestimmtes Repository zu aktivieren muss einfach nur der Schalter umgelegt werden (siehe Abbildung).</p>
+
+<figure>
+  <img 
+    
+      src='https://meinto.github.io/images/tutorials/hugo-auf-github-pages-hosten/travis-ci.jpg'
+    
+  >
+
+  
+    <figcaption>
+        <p><p>Werden nicht alle Projekte auf dem Dashboard angezeigt hilft meist ein beherzter Klick auf den <strong>Sync Account</strong> Button&hellip;</p>
+</p>
+    </figcaption>
+  
+
+</figure>
+
+<p>Über das Zahnrädchen kommt man dann auf die Einstellungen für das gewünschte Repository. Standardmäßig buildet Travis die Projekte automatisch wenn es auf dem jeweiligen Branch Updates gibt. Damit Travis weiß was es zu tun hat, muss dem Hugo Projekt nun noch eine <code>.travis.yml</code> hinzugefügt werden.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">language: none
+
+sudo: <span style="color:#66d9ef">true</span>
+dist: trusty
+
+install:
+  - sudo apt-get --yes install snapd
+  - sudo snap install hugo
+  - sudo apt-get install python3-pygments
+  - git clone --recursive -j8 https://github.com/meinto/meinto.github.io.hugo.git
+  - cd meinto.github.io.hugo
+
+script:
+  - /snap/bin/hugo
+  - cd public
+  - ls -la
+
+deploy:
+  repo: meinto/meinto.github.io
+  target_branch: master
+  provider: pages
+  skip_cleanup: <span style="color:#66d9ef">true</span>
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master</code></pre></div>
+
+<p>In meinem Fall veranlasst die <code>.travis.yml</code> dass eine <strong>Ubuntu trusty Umgebung</strong> zum builden des Projektes hochgefahren wird. Danach wird <strong>hugo über snapd</strong> sowie <strong>pygments</strong> für das Code Highlighting installiert. Im Anschluss wird das <strong>Hugo Projekt</strong> von meinem Github Account gecloned und gebuildet. Der <code>deploy</code> Block der <code>.travis.yml</code> ist für die Veröffentlichung auf dem Github Pages Repository zuständig. Im Grunde wird der von Hugo erstellte <code>public</code> Ordner auf dieses Repository gepushed.</p>
+
+<p>Github Pages macht dann den Rest.</p>
+
+<p>Voilà.</p>
+
+
+  </article>
+
+  <section>
+  
+    <h2>Kommentare</h2>
+
+    <div id="disqus_thread"></div>
+    <noscript>Bitte aktiviere JavaScript in deinem Browser um Kommentare lesen zu können...</noscript>
+  
+  </section>
+
+        </div>  
+      </div>
+    </main>
+
+    <footer>
+      <div class="row">
+        <div class="small-12 columns">
+          <span class="copyright">© Tobias Meinhardt 2018</span>
+          
+          <span class="right">
+            
+              
+                <a
+                  href="https://meinto.github.io/kontakt/"
+                  class="tab"
+                >Kontakt</a>
+              
+            
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/impressum/"
+                  class="tab"
+                >Impressum</a>
+              
+            
+              
+                <a
+                  href="https://meinto.github.io/ueber-mich/"
+                  class="tab"
+                >Über den Autor</a>
+              
+            
+          </span>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+  
+</html>
+
+
+
+  <script>
+
+    var disqus_config = function () {
+      this.page.url = "https://meinto.github.io/tutorials/hugo-auf-github-pages-hosten/";  
+      this.page.identifier = "tutorials/hugo-auf-github-pages-hosten/"; 
+    };
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://meinto-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+  </script>
+

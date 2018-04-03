@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>
+      
+        Jekyll
+      
+    </title>
+    <link>https://meinto.github.io/tags/jekyll/</link>
+    <description>
+      
+        Jekyll
+        
+    </description>
+    
+      <language>de-DE</language>
+    
+    
+      <copyright>© Tobias Meinhardt 2018</copyright>
+    
+    
+        <atom:link href="https://meinto.github.io/tags/jekyll/rss.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        <item>
+          <title>Static Site Generator Hugo auf Github Pages hosten</title>
+          <link>https://meinto.github.io/tutorials/hugo-auf-github-pages-hosten/</link>
+          
+            <pubDate>21.08.2017</pubDate>
+          
+          
+          <guid>https://meinto.github.io/tutorials/hugo-auf-github-pages-hosten/</guid>
+          <description>Website Hosting auf Github Pages Serverless Infrastructure ist eines der Buzzwords, welches in den letzten Jahren immer mehr im Kommen ist. So könnte man auch das Hosting einer Website auf Github Pages als serverless bezeichnen.
+Github erlaubt dem Standard User eine Website kostenlos auf deren Infrastruktur zu hosten. Voraussetzung hierfür ist, dass es sich um eine statische Website handelt. Serverseitige Code-Ausführung ist nicht möglich.
+Usage Limits Wer bei Github seinen Blog oder seine Website hosten möchte, muss sich an einige Rahmenbedingungen halten.</description>
+        </item>
+      
+    
+  </channel>
+</rss>
